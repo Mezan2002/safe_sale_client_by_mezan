@@ -6,11 +6,11 @@ import logo from "../../../assets/SafeSaleLogo.png";
 const Navbar = () => {
   const navItems = (
     <>
-      <li>
+      <li className="mr-2">
         <Link to="/">Home</Link>
       </li>
-      <li>
-        <Link to="/">Blog</Link>
+      <li className="mr-2">
+        <Link to="/blog">Blog</Link>
       </li>
     </>
   );
@@ -49,7 +49,7 @@ const Navbar = () => {
         <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal p-0">{navItems}</ul>
         </div>
-        <div className="ml-5">
+        <div className="">
           <div className="bg-gray-400 rounded-full w-10 h-10 flex justify-center items-center">
             <span>
               <FaUserAlt className="text-xl"></FaUserAlt>
