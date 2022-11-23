@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaUserAlt } from "react-icons/fa";
 
 const Navbar = () => {
   const navItems = (
@@ -37,13 +38,19 @@ const Navbar = () => {
               {navItems}
             </ul>
           </div>
-          <Link className="btn btn-ghost normal-case text-xl">SafeSale</Link>
+          <Link className="btn btn-ghost normal-case text-xl" to="/">
+            SafeSale
+          </Link>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal p-0">{navItems}</ul>
         </div>
-        <div className="navbar-end">
-          <Link className="btn">Get started</Link>
+        <div className="ml-5">
+          <div className="bg-gray-400 rounded-full w-10 h-10 flex justify-center items-center">
+            <span>
+              <FaUserAlt className="text-xl"></FaUserAlt>
+            </span>
+          </div>
         </div>
       </div>
     </div>
