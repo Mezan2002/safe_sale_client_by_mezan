@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
+import logo from "../../../assets/SafeSaleLogo.png";
 
 const Navbar = () => {
   const navItems = (
@@ -8,11 +9,14 @@ const Navbar = () => {
       <li>
         <Link to="/">Home</Link>
       </li>
+      <li>
+        <Link to="/">Blog</Link>
+      </li>
     </>
   );
   return (
     <div>
-      <div className="navbar bg-base-100">
+      <div className="navbar -mt-5">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -38,8 +42,8 @@ const Navbar = () => {
               {navItems}
             </ul>
           </div>
-          <Link className="btn btn-ghost normal-case text-xl" to="/">
-            SafeSale
+          <Link to="/">
+            <img className="w-28" src={logo} alt="" />
           </Link>
         </div>
         <div className="navbar-end hidden lg:flex">
