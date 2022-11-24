@@ -18,13 +18,15 @@ const SingleProductCard = ({ product }) => {
   } = product;
   return (
     <div>
-      <div className="card card-side shadow-xl mb-5">
+      <div className="card lg:card-side shadow-xl mb-5 w-8/12 mx-auto">
         <figure>
           <img src={productPhoto} className="h-96" alt="Movie" />
         </figure>
-        <div className="card-body">
-          <h2 className="text-4xl font-bold">{name}</h2>
-          <h4 className="flex items-center font-bold mb-7">
+        <div className="card-body ">
+          <h2 className="text-4xl font-bold text-center md:text-left">
+            {name}
+          </h2>
+          <h4 className="flex items-center justify-center md:justify-start font-bold mb-7 text-center md:text-left">
             Posted By {sellerName}
             {isSellerVerified ? (
               <span className="ml-2">
@@ -32,16 +34,17 @@ const SingleProductCard = ({ product }) => {
               </span>
             ) : null}
           </h4>
-          <div className="font-semibold mb-5">
+          <div className="font-semibold mb-5 text-center md:text-left">
             <p>Original Price: {originalPrice} BDT</p>
             <p>Resale Price: {resalePrice} BDT</p>
+            <p>Products Status: {status}</p>
             <p>Year of User: {yearOfUse} Years</p>
             <p>Condition of Product: {conditionOfProduct}</p>
             <p>Seller Phone Number: {sellerPhoneNumber}</p>
             <p>Product Recived from: {locationOfSeller}</p>
             <p>Product Added on: {productAddedDate}</p>
           </div>
-          <div className="card-actions">
+          <div className=" text-center md:text-left">
             <button className="btn btn-primary">Book Now</button>
           </div>
         </div>

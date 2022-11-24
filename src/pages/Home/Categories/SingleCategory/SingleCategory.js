@@ -4,7 +4,6 @@ import SingleProductCard from "../SingleProductCard/SingleProductCard";
 
 const SingleCategory = () => {
   const products = useLoaderData();
-  console.log(products);
   return (
     <div>
       <div>
