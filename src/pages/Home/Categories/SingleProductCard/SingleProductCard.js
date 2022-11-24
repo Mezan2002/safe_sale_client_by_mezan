@@ -1,5 +1,6 @@
 import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
+import BookingModal from "./BookingModal/BookingModal";
 
 const SingleProductCard = ({ product }) => {
   const {
@@ -45,7 +46,10 @@ const SingleProductCard = ({ product }) => {
             <p>Product Added on: {productAddedDate}</p>
           </div>
           <div className=" text-center md:text-left">
-            <button className="btn btn-primary">Book Now</button>
+            <label htmlFor="bookingModal" className="btn btn-primary">
+              Book Now
+            </label>
+            <BookingModal product={product}></BookingModal>
           </div>
         </div>
       </div>
