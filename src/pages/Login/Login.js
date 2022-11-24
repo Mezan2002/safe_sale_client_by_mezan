@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import loginImage from "../../../src/assets/undraw_secure_login_pdn4.svg";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const Login = () => {
+  const { googleLogin } = useContext(AuthContext);
+  const [loginError, setLoginError] = useState("");
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoginError(err.message);
+      });
+  };
   return (
     <div>
       <div className="flex items-center justify-around">
@@ -56,7 +70,10 @@ const Login = () => {
               />
             </form>
             <div className="divider mt-10">OR</div>
-            <button className="btn btn-block btn-outline">
+            <button
+              onClick={handleGoogleLogin}
+              className="btn btn-block btn-outline"
+            >
               <FaGoogle className="text-2xl mr-5"></FaGoogle>
               Continue With Google
             </button>
