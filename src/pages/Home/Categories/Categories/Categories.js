@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CategoryCard from "./CategoryCard/CategoryCard";
+import CategoryCard from "../CategoryCard/CategoryCard";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
