@@ -1,0 +1,17 @@
+[
+  {
+    "name": "IPhone",
+    "image": "https://i.ibb.co/34ZxF3G/iphone-logo-542.jpg",
+    "categoryID": "01"
+  },
+  {
+    "name": "Samsung",
+    "image": "https://i.ibb.co/yXbRwmH/Samsung-Logo-svg.png",
+    "categoryID": "02"
+  },
+  {
+    "name": "Real Me",
+    "image": "https://i.ibb.co/711zjZq/realme.jpg",
+    "categoryID": "03"
+  }
+]

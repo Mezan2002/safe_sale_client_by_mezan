@@ -11,7 +11,7 @@ const Banner = () => {
             </h2>
             <p className="mt-4 mb-8">
               we give you all kinds of phones which is used before in a low
-              amount of cost...
+              amount of cost.
             </p>
             <div className="w-48">
               <button className="btn">Get started</button>
