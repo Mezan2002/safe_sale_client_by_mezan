@@ -15,6 +15,9 @@ const Navbar = () => {
       <li className="mr-2">
         <Link to="/categories">Categories</Link>
       </li>
+      <li className="mr-2">
+        <Link to="/login">Log In</Link>
+      </li>
     </>
   );
   return (
