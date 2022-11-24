@@ -20,7 +20,6 @@ const Routes = createBrowserRouter([
       {
         path: "/categories",
         element: <Categories></Categories>,
-        loader: () => fetch("http://localhost:5000/categories"),
       },
     ],
   },
