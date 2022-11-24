@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import loginImage from "../../../src/assets/undraw_secure_login_pdn4.svg";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
-const Login = () => {
-  const { googleLogin, loginUser } = useContext(AuthContext);
+const SignUp = () => {
+  const { googleLogin, createUser } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
 
   const {
@@ -18,7 +18,7 @@ const Login = () => {
   const handleLogIn = (data) => {
     console.log(data);
     setLoginError("");
-    loginUser(data.email, data.password)
+    createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
@@ -40,19 +40,35 @@ const Login = () => {
   };
   return (
     <div>
-      <div className="flex items-center justify-around">
+      <div className="flex items-center justify-around min-h-[90vh]">
         <div className="w-1/2">
           <img src={loginImage} className="w-8/12 mx-auto" alt="" />
         </div>
         <div className="w-1/2">
           <div className="border w-9/12  border-black p-10 rounded-3xl">
-            <h2 className="text-4xl text-center mb-10 font-semibold">Log In</h2>
+            <h2 className="text-4xl text-center mb-10 font-semibold">
+              Sign Up
+            </h2>
             <form onSubmit={handleSubmit(handleLogIn)}>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text font-bold">
-                    Username or Email
-                  </span>
+                  <span className="label-text font-bold">Full Name</span>
+                </label>
+                <input
+                  type="text"
+                  {...register("fullName", { required: true })}
+                  placeholder=""
+                  className="input input-bordered w-full"
+                />
+                {errors.fullName?.type === "required" && (
+                  <p className="text-red-600" role="alert">
+                    Full Name is required
+                  </p>
+                )}
+              </div>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-bold">Email</span>
                 </label>
                 <input
                   type="email"
@@ -109,9 +125,9 @@ const Login = () => {
             </form>
             <div>
               <p className="text-center mt-5">
-                new at safe sale?{" "}
-                <Link to="/signup" className="underline">
-                  create a new account
+                already have an accont?
+                <Link to="/login" className="underline">
+                  Log In
                 </Link>
               </p>
             </div>
@@ -130,4 +146,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

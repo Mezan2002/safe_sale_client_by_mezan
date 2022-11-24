@@ -5,6 +5,8 @@ import Categories from "../../pages/Home/Categories/Categories/Categories";
 import SingleCategory from "../../pages/Home/Categories/SingleCategory/SingleCategory";
 import Home from "../../pages/Home/Home/Home";
 import Login from "../../pages/Login/Login";
+import Page404 from "../../pages/Page404/Page404";
+import SignUp from "../../pages/SignUp/SIgnUp";
 
 const Routes = createBrowserRouter([
   {
@@ -33,7 +35,15 @@ const Routes = createBrowserRouter([
         path: "/login",
         element: <Login></Login>,
       },
+      {
+        path: "/signup",
+        element: <SignUp></SignUp>,
+      },
     ],
+  },
+  {
+    path: "*",
+    element: <Page404></Page404>,
   },
 ]);
 

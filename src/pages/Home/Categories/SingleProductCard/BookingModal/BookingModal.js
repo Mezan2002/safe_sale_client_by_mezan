@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../../../../contexts/AuthProvider/AuthProvider";
 
 const BookingModal = ({ product }) => {
   const { name, resalePrice, locationOfSeller, sellerPhoneNumber, sellerName } =
     product;
+  const { user } = useContext(AuthContext);
   return (
     <div>
       <input type="checkbox" id="bookingModal" className="modal-toggle" />
@@ -23,6 +25,8 @@ const BookingModal = ({ product }) => {
               <input
                 type="text"
                 placeholder=""
+                defaultValue={user?.displayName}
+                disabled
                 className="input input-bordered w-full"
               />
             </div>
@@ -33,6 +37,8 @@ const BookingModal = ({ product }) => {
               <input
                 type="text"
                 placeholder=""
+                defaultValue={user?.email}
+                disabled
                 className="input input-bordered w-full"
               />
             </div>

@@ -1,23 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
 import logo from "../../../assets/SafeSaleLogo.png";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
   const navItems = (
     <>
       <li className="mr-2">
         <Link to="/">Home</Link>
       </li>
       <li className="mr-2">
-        <Link to="/blog">Blog</Link>
-      </li>
-      <li className="mr-2">
         <Link to="/categories">Categories</Link>
       </li>
       <li className="mr-2">
-        <Link to="/login">Log In</Link>
+        <Link to="/blog">Blog</Link>
       </li>
+      {user && user?.uid ? (
+        <li className="mr-2">
+          <Link onClick={logOut}>Log Out</Link>
+        </li>
+      ) : (
+        <li className="mr-2">
+          <Link to="/login">Log In</Link>
+        </li>
+      )}
     </>
   );
   return (
