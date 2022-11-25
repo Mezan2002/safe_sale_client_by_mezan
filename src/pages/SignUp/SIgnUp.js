@@ -18,6 +18,7 @@ const SignUp = () => {
 
   //   handle google sign in start
   const handleGoogleLogin = () => {
+    setSetUpError("");
     googleLogin()
       .then((result) => {
         const user = result.user;
@@ -68,6 +69,7 @@ const SignUp = () => {
             <h2 className="text-4xl text-center mb-10 font-semibold">
               Sign Up
             </h2>
+            <p className="text-center text-red-500">{signUpError}</p>
             <form onSubmit={handleSubmit(handleLogIn)}>
               <div className="form-control w-full">
                 <label className="label">
