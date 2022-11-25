@@ -7,7 +7,7 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const SignUp = () => {
   const { googleLogin, createUser } = useContext(AuthContext);
-  const [loginError, setLoginError] = useState("");
+  const [signUpError, setSetUpError] = useState("");
 
   const {
     register,
@@ -17,14 +17,14 @@ const SignUp = () => {
 
   const handleLogIn = (data) => {
     console.log(data);
-    setLoginError("");
+    setSetUpError("");
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
       })
       .catch((error) => {
-        setLoginError(error.message);
+        setSetUpError(error.message);
       });
   };
 
@@ -35,7 +35,7 @@ const SignUp = () => {
         console.log(user);
       })
       .catch((err) => {
-        setLoginError(err.message);
+        setSetUpError(err.message);
       });
   };
   return (
