@@ -15,15 +15,17 @@ const Navbar = () => {
         <Link to="/categories">Categories</Link>
       </li>
       <li className="mr-2">
-        <Link to="/dashboard">Dashboard</Link>
-      </li>
-      <li className="mr-2">
         <Link to="/blog">Blog</Link>
       </li>
       {user && user?.uid ? (
-        <li className="mr-2">
-          <Link onClick={logOut}>Log Out</Link>
-        </li>
+        <>
+          <li className="mr-2">
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li className="mr-2">
+            <Link onClick={logOut}>Log Out</Link>
+          </li>
+        </>
       ) : (
         <li className="mr-2">
           <Link to="/login">Log In</Link>
