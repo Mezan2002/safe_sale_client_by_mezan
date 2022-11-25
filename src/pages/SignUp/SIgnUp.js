@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import loginImage from "../../../src/assets/undraw_secure_login_pdn4.svg";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const SignUp = () => {
-  const { googleLogin, createUser } = useContext(AuthContext);
+  const { googleLogin, createUser, updateUser } = useContext(AuthContext);
   const [signUpError, setSetUpError] = useState("");
 
   const {
@@ -15,19 +16,7 @@ const SignUp = () => {
     handleSubmit,
   } = useForm();
 
-  const handleLogIn = (data) => {
-    console.log(data);
-    setSetUpError("");
-    createUser(data.email, data.password)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        setSetUpError(error.message);
-      });
-  };
-
+  //   handle google sign in start
   const handleGoogleLogin = () => {
     googleLogin()
       .then((result) => {
@@ -38,6 +27,36 @@ const SignUp = () => {
         setSetUpError(err.message);
       });
   };
+  //   handle google sign in end
+
+  //   handle email and password login start
+  const handleLogIn = (data) => {
+    console.log(data);
+    setSetUpError("");
+    createUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast.success("User Created Successfully!");
+        const userInforToUpdate = {
+          displayName: data.fullName,
+        };
+        setUserToDB(data.fullName, data.email, data.password, data.role);
+        updateUser(userInforToUpdate);
+      })
+      .catch((error) => {
+        setSetUpError(error.message);
+      });
+  };
+  //   handle email and password login end
+
+  //   set datas on DB start
+  const setUserToDB = (name, email, password, role) => {
+    const user = { name, email, password, role };
+    console.log(user);
+  };
+  //   set datas on DB end
+
   return (
     <div>
       <div className="flex items-center justify-around min-h-[90vh]">
