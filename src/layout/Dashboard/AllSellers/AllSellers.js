@@ -4,7 +4,7 @@ const AllSellers = () => {
   const [allSellers, setAllSellers] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/users?role=Seller")
+    fetch("http://localhost:5000/users/seller")
       .then((res) => res.json())
       .then((data) => setAllSellers(data));
   }, []);
@@ -24,21 +24,23 @@ const AllSellers = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="hover">
-              <th>1</th>
-              <td>Mezanur Rahman</td>
-              <td>meza@nur.com</td>
-              <td>
-                <button className="btn btn-sm btn-success text-white">
-                  Verify
-                </button>
-              </td>
-              <td>
-                <button className="btn btn-sm btn-error text-white">
-                  Delete
-                </button>
-              </td>
-            </tr>
+            {allSellers.map((seller, idx) => (
+              <tr key={seller._id} className="hover">
+                <th>{idx + 1}</th>
+                <td>{seller.name}</td>
+                <td>{seller.email}</td>
+                <td>
+                  <button className="btn btn-sm btn-success text-white">
+                    Verify
+                  </button>
+                </td>
+                <td>
+                  <button className="btn btn-sm btn-error text-white">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
