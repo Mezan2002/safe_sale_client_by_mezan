@@ -1,13 +1,17 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImage from "../../../src/assets/undraw_secure_login_pdn4.svg";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const Login = () => {
   const { googleLogin, loginUser } = useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -22,6 +26,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        toast.success("User Logged In Successfully");
       })
       .catch((error) => {
         setLoginError(error.message);
@@ -34,6 +39,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        toast.success("User Logged In Successfully");
       })
       .catch((err) => {
         setLoginError(err.message);
@@ -87,21 +93,6 @@ const Login = () => {
                 {errors.password && (
                   <p className="text-red-600">{errors.password.message}</p>
                 )}
-              </div>
-              <div>
-                <label className="label">
-                  <span className="label-text font-bold">
-                    What are you want to be?
-                  </span>
-                </label>
-                <select
-                  className="select select-bordered w-full"
-                  {...register("role")}
-                  defaultValue="Buyer/User"
-                >
-                  <option>Buyer/User</option>
-                  <option>Seller</option>
-                </select>
               </div>
               <input
                 type="submit"

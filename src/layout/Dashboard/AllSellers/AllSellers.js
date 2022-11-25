@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const AllSellers = () => {
+  const [allSellers, setAllSellers] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/users?role=Seller")
+      .then((res) => res.json())
+      .then((data) => setAllSellers(data));
+  }, []);
+
   return (
     <div>
+      <h2 className="text-4xl font-bold mb-10">All Sellers</h2>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>

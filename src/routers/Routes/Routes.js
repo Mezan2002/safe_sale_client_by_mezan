@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import AllSellers from "../../layout/Dashboard/AllSellers/AllSellers";
+import AllUsers from "../../layout/Dashboard/AllUsers/AllUsers";
 import Dashboard from "../../layout/Dashboard/Dashboard";
 import Main from "../../layout/Main/Main";
 import Blog from "../../pages/Blog/Blog";
@@ -50,6 +51,11 @@ const Routes = createBrowserRouter([
       {
         path: "/dashboard",
         element: <AllSellers></AllSellers>,
+      },
+      {
+        path: "/dashboard/allUsers",
+        element: <AllUsers></AllUsers>,
+        loader: () => fetch("http://localhost:5000/users"),
       },
     ],
   },

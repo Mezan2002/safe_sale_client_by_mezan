@@ -2,13 +2,14 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginImage from "../../../src/assets/undraw_secure_login_pdn4.svg";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const SignUp = () => {
   const { googleLogin, createUser, updateUser } = useContext(AuthContext);
   const [signUpError, setSetUpError] = useState("");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -23,6 +24,7 @@ const SignUp = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        toast.success("User Logged In Successfully");
       })
       .catch((err) => {
         setSetUpError(err.message);
@@ -32,7 +34,6 @@ const SignUp = () => {
 
   //   handle email and password login start
   const handleLogIn = (data) => {
-    console.log(data);
     setSetUpError("");
     createUser(data.email, data.password)
       .then((result) => {
@@ -54,7 +55,18 @@ const SignUp = () => {
   //   set datas on DB start
   const setUserToDB = (name, email, password, role) => {
     const user = { name, email, password, role };
-    console.log(user);
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        navigate("/");
+      });
   };
   //   set datas on DB end
 
@@ -134,13 +146,13 @@ const SignUp = () => {
                   {...register("role")}
                   defaultValue="Buyer/User"
                 >
-                  <option>Buyer/User</option>
+                  <option>Buyer</option>
                   <option>Seller</option>
                 </select>
               </div>
               <input
                 type="submit"
-                value="Log In"
+                value="Sign Up"
                 className="btn btn-primary btn-block mt-10"
               />
             </form>

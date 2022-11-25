@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { FaUserAlt } from "react-icons/fa";
+import { FaList, FaUserAlt } from "react-icons/fa";
 import logo from "../../../assets/SafeSaleLogo.png";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
@@ -35,7 +35,21 @@ const Navbar = () => {
     <div>
       <div className="navbar -mt-5">
         <div className="navbar-start">
-          <div className="dropdown">
+          <label
+            htmlFor="dashboardDrawer"
+            tabIndex={1}
+            className="btn btn-ghost lg:hidden"
+          >
+            <p>
+              <FaList></FaList>
+            </p>
+          </label>
+          <Link to="/">
+            <img className="w-28" src={logo} alt="" />
+          </Link>
+        </div>
+        <div className="navbar-end">
+          <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -59,9 +73,6 @@ const Navbar = () => {
               {navItems}
             </ul>
           </div>
-          <Link to="/">
-            <img className="w-28" src={logo} alt="" />
-          </Link>
         </div>
         <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal p-0">{navItems}</ul>
