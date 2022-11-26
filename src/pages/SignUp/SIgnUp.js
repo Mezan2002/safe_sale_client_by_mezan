@@ -64,11 +64,24 @@ const SignUp = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        getUserToken(email);
         console.log(data);
-        navigate("/");
       });
   };
   //   set datas on DB end
+
+  // get user token start
+  const getUserToken = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("accessToken", data.accessToken);
+          navigate("/");
+        }
+      });
+  };
+  // get user token end
 
   return (
     <div>

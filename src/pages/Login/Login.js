@@ -19,6 +19,20 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
+  const handleGoogleLogin = () => {
+    setLoginError("");
+    googleLogin()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate("/");
+        toast.success("User Logged In Successfully");
+      })
+      .catch((err) => {
+        setLoginError(err.message);
+      });
+  };
+
   const handleLogIn = (data) => {
     console.log(data);
     setLoginError("");
@@ -34,19 +48,6 @@ const Login = () => {
       });
   };
 
-  const handleGoogleLogin = () => {
-    setLoginError("");
-    googleLogin()
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        navigate("/");
-        toast.success("User Logged In Successfully");
-      })
-      .catch((err) => {
-        setLoginError(err.message);
-      });
-  };
   return (
     <div>
       <div className="flex items-center justify-around">
