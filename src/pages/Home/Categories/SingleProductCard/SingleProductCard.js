@@ -16,6 +16,7 @@ const SingleProductCard = ({ product, setProduct }) => {
     status,
     isSellerVerified,
   } = product;
+
   return (
     <div>
       <div className="card lg:card-side shadow-xl w-8/12 mx-auto mb-20">
@@ -43,13 +44,19 @@ const SingleProductCard = ({ product, setProduct }) => {
             <p>Product Added on: {productAddedDate}</p>
           </div>
           <div className=" text-center md:text-left">
-            <label
-              onClick={() => setProduct(product)}
-              htmlFor="bookingModal"
-              className="btn btn-primary"
-            >
-              Book Now
-            </label>
+            {status === "Booked" ? (
+              <label htmlFor="bookingModal" className="btn btn-disabled">
+                Booked
+              </label>
+            ) : (
+              <label
+                onClick={() => setProduct(product)}
+                htmlFor="bookingModal"
+                className="btn btn-primary"
+              >
+                Book Now
+              </label>
+            )}
           </div>
         </div>
       </div>

@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../../../../contexts/AuthProvider/AuthProvider";
 
-const BookingModal = ({ product }) => {
-  const { name, resalePrice, locationOfSeller, sellerName } = product;
+const BookingModal = ({ product, setProduct }) => {
+  const { name, resalePrice, locationOfSeller, sellerName, _id, status } =
+    product;
   const { user } = useContext(AuthContext);
 
   const handleBooking = (event) => {
@@ -38,8 +39,7 @@ const BookingModal = ({ product }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          toast.success("Booking Confirmed");
-          /* fetch(`http://localhost:5000/products`, {
+          fetch(`http://localhost:5000/booked/${_id}`, {
             method: "PATCH",
             headers: {
               "content-type": "application/json",
@@ -47,8 +47,12 @@ const BookingModal = ({ product }) => {
           })
             .then((res) => res.json())
             .then((data) => {
+              if (data.modifiedCount) {
+                setProduct(null);
+                toast.success("Booking Confirmed");
+              }
               console.log(data);
-            }); */
+            });
         }
       });
   };
@@ -174,11 +178,19 @@ const BookingModal = ({ product }) => {
                   className="input input-bordered w-full"
                 />
               </div>
-              <input
-                type="submit"
-                value="Book Now"
-                className="btn btn-primary mt-5 btn-block"
-              />
+              {status === "Booked" ? (
+                <input
+                  type="submit"
+                  value="Booked"
+                  className="btn btn-disabled mt-5 btn-block"
+                />
+              ) : (
+                <input
+                  type="submit"
+                  value="Book Now"
+                  className="btn btn-primary mt-5 btn-block"
+                />
+              )}
             </form>
           </div>
         </div>

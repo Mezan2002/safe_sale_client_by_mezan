@@ -6,7 +6,6 @@ import SingleProductCard from "../SingleProductCard/SingleProductCard";
 const SingleCategory = () => {
   const products = useLoaderData();
   const [product, setProduct] = useState(null);
-  console.log(product);
   return (
     <div>
       <div className="">
@@ -17,7 +16,12 @@ const SingleCategory = () => {
             setProduct={setProduct}
           ></SingleProductCard>
         ))}
-        {product && <BookingModal product={product}></BookingModal>}
+        {product && (
+          <BookingModal
+            product={product}
+            setProduct={setProduct}
+          ></BookingModal>
+        )}
       </div>
     </div>
   );
