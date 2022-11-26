@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const AddAProduct = () => {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -20,12 +24,12 @@ const AddAProduct = () => {
       conditionOfProduct: data.productCondition,
       locationOfSeller: data.sellerLocation,
       sellerName: data.sellerName,
+      sellerEmail: user.email,
       sellerPhoneNumber: data.sellerPhone,
       productAddedDate: new Date().toLocaleString(),
       status: "Available",
       isReported: false,
       isAdvertised: false,
-      isSellerVerified: false,
     };
 
     fetch("http://localhost:5000/products", {
@@ -39,6 +43,7 @@ const AddAProduct = () => {
       .then((data) => {
         if (data.acknowledged) {
           toast.success("Product Added Successfully");
+          navigate("/dashboard/myProducts");
         }
         console.log(data);
       });

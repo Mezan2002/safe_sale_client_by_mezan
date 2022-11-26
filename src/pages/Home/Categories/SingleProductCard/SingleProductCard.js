@@ -20,9 +20,7 @@ const SingleProductCard = ({ product }) => {
   return (
     <div>
       <div className="card shadow-xl mb-20">
-        <figure>
-          <img src={productPhoto} className="h-96" alt="" />
-        </figure>
+        <img src={productPhoto} className="h-[420px] w-96 pl-5" alt="" />
         <div className="card-body">
           <h2 className="text-4xl font-bold text-center md:text-left">
             {name}
