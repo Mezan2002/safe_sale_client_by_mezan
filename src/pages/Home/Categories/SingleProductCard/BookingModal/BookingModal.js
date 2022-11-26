@@ -39,6 +39,16 @@ const BookingModal = ({ product }) => {
       .then((data) => {
         if (data.acknowledged) {
           toast.success("Booking Confirmed");
+          /* fetch(`http://localhost:5000/products`, {
+            method: "PATCH",
+            headers: {
+              "content-type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+            }); */
         }
       });
   };

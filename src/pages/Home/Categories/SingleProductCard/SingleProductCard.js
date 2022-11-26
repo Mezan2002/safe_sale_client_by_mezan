@@ -1,8 +1,7 @@
 import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
-import BookingModal from "./BookingModal/BookingModal";
 
-const SingleProductCard = ({ product }) => {
+const SingleProductCard = ({ product, setProduct }) => {
   const {
     productPhoto,
     name,
@@ -19,8 +18,8 @@ const SingleProductCard = ({ product }) => {
   } = product;
   return (
     <div>
-      <div className="card shadow-xl mb-20">
-        <img src={productPhoto} className="h-[420px] w-96 pl-5" alt="" />
+      <div className="card lg:card-side shadow-xl w-8/12 mx-auto mb-20">
+        <img src={productPhoto} className="h-96 mt-7 ml-5" alt="" />
         <div className="card-body">
           <h2 className="text-4xl font-bold text-center md:text-left">
             {name}
@@ -44,10 +43,13 @@ const SingleProductCard = ({ product }) => {
             <p>Product Added on: {productAddedDate}</p>
           </div>
           <div className=" text-center md:text-left">
-            <label htmlFor="bookingModal" className="btn btn-primary">
+            <label
+              onClick={() => setProduct(product)}
+              htmlFor="bookingModal"
+              className="btn btn-primary"
+            >
               Book Now
             </label>
-            <BookingModal product={product}></BookingModal>
           </div>
         </div>
       </div>

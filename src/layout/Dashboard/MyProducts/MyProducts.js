@@ -1,12 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import Loading from "../../../pages/shared/Loading/Loading";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
-  const [myProducts, setMyProducts] = useState([]);
-  const { data: productsData = [] } = useQuery({
-    queryKey: ["products"],
+  //   const [myProducts, setMyProducts] = useState([]);
+  const {
+    data: myProducts = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["products", user?.email],
     queryFn: async () => {
       const res = await fetch(
         `http://localhost:5000/products?email=${user?.email}`
@@ -15,14 +20,6 @@ const MyProducts = () => {
       return data;
     },
   });
-  useEffect(() => {
-    fetch(`http://localhost:5000/products?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setMyProducts(data);
-        console.log(data);
-      });
-  }, [user?.email]);
 
   const handleAdvertise = (id) => {
     fetch(`http://localhost:5000/products/${id}`, {
@@ -33,9 +30,16 @@ const MyProducts = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        if (data.modifiedCount === 1) {
+          refetch();
+        }
         console.log(data);
       });
   };
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div>
@@ -60,12 +64,21 @@ const MyProducts = () => {
                 <td>{product.resalePrice}</td>
                 <td>{product.status}</td>
                 <td>
-                  <button
-                    onClick={() => handleAdvertise(product._id)}
-                    className="btn btn-sm btn-success text-white"
-                  >
-                    Advertise
-                  </button>
+                  {product.isAdvertised === true ? (
+                    <button
+                      onClick={() => handleAdvertise(product._id)}
+                      className="btn btn-sm btn-disabled  text-white"
+                    >
+                      Advertised
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleAdvertise(product._id)}
+                      className="btn btn-sm btn-success text-white"
+                    >
+                      Advertise
+                    </button>
+                  )}
                 </td>
                 <td>
                   <button className="btn btn-sm btn-error text-white">
