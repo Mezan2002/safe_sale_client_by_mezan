@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const MyOrders = () => {
+  const { user } = useContext(AuthContext);
+  const [myOrders, setMyOrders] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:5000/bookings?email=${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setMyOrders(data);
+        console.log(data);
+      });
+  }, [user?.email]);
   return (
     <div>
       <h2 className="text-4xl font-bold mb-10">My Orders</h2>
@@ -11,26 +22,24 @@ const MyOrders = () => {
               <th></th>
               <th>Name</th>
               <th>Email</th>
-              <th>User Role</th>
-              <th>Delete User</th>
+              <th>Product Name</th>
+              <th>Product Price</th>
+              <th>Sellers Location</th>
+              <th>Meeting Location</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="hover">
-              <th>1</th>
-              <td>Name</td>
-              <td>Email</td>
-              <td>
-                <button className="btn btn-sm btn-success text-white">
-                  Verify
-                </button>
-              </td>
-              <td>
-                <button className="btn btn-sm btn-error text-white">
-                  Delete
-                </button>
-              </td>
-            </tr>
+            {myOrders.map((order, i) => (
+              <tr key={order._id} className="hover">
+                <th>{i + 1}</th>
+                <td>{order.userName}</td>
+                <td>{order.userEmail}</td>
+                <td>{order.productName}</td>
+                <td>{order.productPrice}</td>
+                <td>{order.locationOfProduct}</td>
+                <td>{order.meetingLocation}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
