@@ -1,17 +1,44 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import Loading from "../../../pages/shared/Loading/Loading";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
-  const [myOrders, setMyOrders] = useState([]);
-  useEffect(() => {
-    fetch(`http://localhost:5000/bookings?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setMyOrders(data);
-        console.log(data);
-      });
-  }, [user?.email]);
+  const {
+    data: myOrders = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["bookings", user?.email],
+    queryFn: async () => {
+      const res = await fetch(
+        `http://localhost:5000/bookings?email=${user?.email}`
+      );
+      const data = await res.json();
+      return data;
+    },
+  });
+  const handleCancel = (id) => {
+    const proceed = window.confirm("Are you want to delete your order?");
+    if (proceed) {
+      fetch(`http://localhost:5000/bookings/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount === 1) {
+            refetch();
+            console.log(data);
+          }
+        });
+    }
+  };
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
+
   return (
     <div>
       <h2 className="text-4xl font-bold mb-10">My Orders</h2>
@@ -27,6 +54,7 @@ const MyOrders = () => {
               <th>Sellers Location</th>
               <th>Meeting Location</th>
               <th>Payment</th>
+              <th>Cancel Order</th>
             </tr>
           </thead>
           <tbody>
@@ -42,6 +70,14 @@ const MyOrders = () => {
                 <td>
                   <button className="btn btn-success btn-sm text-white">
                     Pay
+                  </button>
+                </td>
+                <td>
+                  <button
+                    onClick={() => handleCancel(order._id)}
+                    className="btn btn-error btn-sm text-white"
+                  >
+                    Cancel
                   </button>
                 </td>
               </tr>
