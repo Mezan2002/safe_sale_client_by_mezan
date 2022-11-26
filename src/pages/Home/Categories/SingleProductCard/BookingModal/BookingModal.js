@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../../../../contexts/AuthProvider/AuthProvider";
 
 const BookingModal = ({ product }) => {
-  const { name, resalePrice, locationOfSeller, sellerPhoneNumber, sellerName } =
-    product;
+  const { name, resalePrice, locationOfSeller, sellerName } = product;
   const { user } = useContext(AuthContext);
   return (
     <div>
@@ -96,15 +95,21 @@ const BookingModal = ({ product }) => {
             </div>
             <div className="form-control w-full">
               <label className="label">
-                <span className="label-text font-bold">
-                  Seller Phone Number
-                </span>
+                <span className="label-text font-bold">Your Phone Number</span>
               </label>
               <input
                 type="text"
                 placeholder=""
-                defaultValue={sellerPhoneNumber}
-                disabled
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text font-bold">Meeting Location</span>
+              </label>
+              <input
+                type="text"
+                placeholder=""
                 className="input input-bordered w-full"
               />
             </div>

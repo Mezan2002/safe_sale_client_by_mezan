@@ -19,11 +19,11 @@ const SingleProductCard = ({ product }) => {
   } = product;
   return (
     <div>
-      <div className="card lg:card-side shadow-xl mb-5 w-8/12 mx-auto">
+      <div className="card shadow-xl mb-20">
         <figure>
-          <img src={productPhoto} className="h-96" alt="Movie" />
+          <img src={productPhoto} className="h-96" alt="" />
         </figure>
-        <div className="card-body ">
+        <div className="card-body">
           <h2 className="text-4xl font-bold text-center md:text-left">
             {name}
           </h2>
