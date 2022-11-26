@@ -33,7 +33,7 @@ const SignUp = () => {
   //   handle google sign in end
 
   //   handle email and password login start
-  const handleLogIn = (data) => {
+  const handleSignUp = (data) => {
     setSetUpError("");
     createUser(data.email, data.password)
       .then((result) => {
@@ -95,7 +95,7 @@ const SignUp = () => {
               Sign Up
             </h2>
             <p className="text-center text-red-500">{signUpError}</p>
-            <form onSubmit={handleSubmit(handleLogIn)}>
+            <form onSubmit={handleSubmit(handleSignUp)}>
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text font-bold">Full Name</span>

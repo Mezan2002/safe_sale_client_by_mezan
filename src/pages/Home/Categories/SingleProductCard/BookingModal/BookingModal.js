@@ -1,9 +1,48 @@
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { AuthContext } from "../../../../../contexts/AuthProvider/AuthProvider";
 
 const BookingModal = ({ product }) => {
   const { name, resalePrice, locationOfSeller, sellerName } = product;
   const { user } = useContext(AuthContext);
+
+  const handleBooking = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const userName = form.userName.value;
+    const userEmail = form.userEmail.value;
+    const productName = form.productName.value;
+    const productPrice = form.productPrice.value;
+    const locationOfProduct = form.locationOfProduct.value;
+    const sellerName = form.sellerName.value;
+    const phoneNumber = form.phoneNumber.value;
+    const meetingLocation = form.meetingLocation.value;
+    const bookingData = {
+      userName,
+      userEmail,
+      productName,
+      productPrice,
+      locationOfProduct,
+      sellerName,
+      phoneNumber,
+      meetingLocation,
+    };
+
+    fetch("http://localhost:5000/bookings", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(bookingData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Booking Confirmed");
+        }
+      });
+  };
+
   return (
     <div>
       <input type="checkbox" id="bookingModal" className="modal-toggle" />
@@ -17,103 +56,120 @@ const BookingModal = ({ product }) => {
           </label>
           <h3 className="text-3xl font-bold">Booking form of {name}</h3>
           <div className="py-4">
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text font-bold">User Name</span>
-              </label>
+            <form onSubmit={handleBooking}>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-bold">User Name</span>
+                </label>
+                <input
+                  name="userName"
+                  type="text"
+                  placeholder=""
+                  defaultValue={user?.displayName}
+                  disabled
+                  className="input input-bordered w-full"
+                />
+              </div>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-bold">User Email</span>
+                </label>
+                <input
+                  name="userEmail"
+                  type="text"
+                  placeholder=""
+                  defaultValue={user?.email}
+                  value={user?.email}
+                  disabled
+                  className="input input-bordered w-full"
+                />
+              </div>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-bold">Products Name</span>
+                </label>
+                <input
+                  name="productName"
+                  type="text"
+                  placeholder=""
+                  defaultValue={name}
+                  disabled
+                  className="input input-bordered w-full"
+                />
+              </div>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-bold">
+                    Products Price (BDT){" "}
+                  </span>
+                </label>
+                <input
+                  name="productPrice"
+                  type="text"
+                  placeholder=""
+                  defaultValue={resalePrice}
+                  disabled
+                  className="input input-bordered w-full"
+                />
+              </div>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-bold">
+                    Product recevied from
+                  </span>
+                </label>
+                <input
+                  name="locationOfProduct"
+                  type="text"
+                  placeholder=""
+                  defaultValue={locationOfSeller}
+                  disabled
+                  className="input input-bordered w-full"
+                />
+              </div>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-bold">Seller Name</span>
+                </label>
+                <input
+                  name="sellerName"
+                  type="text"
+                  placeholder=""
+                  defaultValue={sellerName}
+                  disabled
+                  className="input input-bordered w-full"
+                />
+              </div>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-bold">
+                    Your Phone Number
+                  </span>
+                </label>
+                <input
+                  name="phoneNumber"
+                  type="text"
+                  placeholder=""
+                  className="input input-bordered w-full"
+                />
+              </div>
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text font-bold">Meeting Location</span>
+                </label>
+                <input
+                  name="meetingLocation"
+                  type="text"
+                  placeholder=""
+                  className="input input-bordered w-full"
+                />
+              </div>
               <input
-                type="text"
-                placeholder=""
-                defaultValue={user?.displayName}
-                disabled
-                className="input input-bordered w-full"
+                type="submit"
+                value="Book Now"
+                className="btn btn-primary mt-5 btn-block"
               />
-            </div>
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text font-bold">User Email</span>
-              </label>
-              <input
-                type="text"
-                placeholder=""
-                defaultValue={user?.email}
-                disabled
-                className="input input-bordered w-full"
-              />
-            </div>
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text font-bold">Products Name</span>
-              </label>
-              <input
-                type="text"
-                placeholder=""
-                defaultValue={name}
-                disabled
-                className="input input-bordered w-full"
-              />
-            </div>
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text font-bold">
-                  Products Price (BDT){" "}
-                </span>
-              </label>
-              <input
-                type="text"
-                placeholder=""
-                defaultValue={resalePrice}
-                disabled
-                className="input input-bordered w-full"
-              />
-            </div>
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text font-bold">
-                  Product recevied from
-                </span>
-              </label>
-              <input
-                type="text"
-                placeholder=""
-                defaultValue={locationOfSeller}
-                disabled
-                className="input input-bordered w-full"
-              />
-            </div>
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text font-bold">Seller Name</span>
-              </label>
-              <input
-                type="text"
-                placeholder=""
-                defaultValue={sellerName}
-                disabled
-                className="input input-bordered w-full"
-              />
-            </div>
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text font-bold">Your Phone Number</span>
-              </label>
-              <input
-                type="text"
-                placeholder=""
-                className="input input-bordered w-full"
-              />
-            </div>
-            <div className="form-control w-full">
-              <label className="label">
-                <span className="label-text font-bold">Meeting Location</span>
-              </label>
-              <input
-                type="text"
-                placeholder=""
-                className="input input-bordered w-full"
-              />
-            </div>
-            <button className="btn btn-primary mt-5 btn-block">Submit</button>
+            </form>
           </div>
         </div>
       </div>
