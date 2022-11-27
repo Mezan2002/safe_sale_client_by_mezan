@@ -4,7 +4,6 @@ import AllUsersTableRow from "./AllUsersTableRow";
 
 const AllUsers = () => {
   const users = useLoaderData();
-  console.log(users);
   return (
     <div>
       <h2 className="text-4xl font-bold mb-10">All Users</h2>
