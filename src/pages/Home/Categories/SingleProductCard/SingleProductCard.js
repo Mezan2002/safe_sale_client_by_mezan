@@ -1,7 +1,9 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { FaCheckCircle } from "react-icons/fa";
+import Loading from "../../../shared/Loading/Loading";
 
-const SingleProductCard = ({ product, setProduct }) => {
+const SingleProductCard = ({ product, setProduct, setRefetch }) => {
   const {
     productPhoto,
     name,
@@ -11,11 +13,24 @@ const SingleProductCard = ({ product, setProduct }) => {
     conditionOfProduct,
     locationOfSeller,
     sellerName,
+    sellerEmail,
     sellerPhoneNumber,
     productAddedDate,
     status,
-    isSellerVerified,
   } = product;
+
+  const { data: user = [], isLoading } = useQuery({
+    queryKey: ["users", sellerEmail],
+    queryFn: async () => {
+      const res = await fetch(`http://localhost:5000/users/${sellerEmail}`);
+      const data = await res.json();
+      return data;
+    },
+  });
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div>
@@ -27,7 +42,7 @@ const SingleProductCard = ({ product, setProduct }) => {
           </h2>
           <h4 className="flex items-center justify-center md:justify-start font-bold mb-7 text-center md:text-left">
             Posted By {sellerName}
-            {isSellerVerified ? (
+            {user[0].isVerified === true ? (
               <span className="ml-2">
                 <FaCheckCircle className="text-green-500"></FaCheckCircle>
               </span>
