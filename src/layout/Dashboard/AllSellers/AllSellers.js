@@ -1,13 +1,42 @@
-import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
+import toast from "react-hot-toast";
+import Loading from "../../../pages/shared/Loading/Loading";
 
 const AllSellers = () => {
-  const [allSellers, setAllSellers] = useState([]);
+  const {
+    data: allSellers = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["allUsers"],
+    queryFn: async () => {
+      const res = await fetch("http://localhost:5000/users/seller");
+      const data = await res.json();
+      return data;
+    },
+  });
 
-  useEffect(() => {
-    fetch("http://localhost:5000/users/seller")
+  const handleVerify = (id) => {
+    fetch(`http://localhost:5000/users/${id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
       .then((res) => res.json())
-      .then((data) => setAllSellers(data));
-  }, []);
+      .then((data) => {
+        if (data.modifiedCount === 1) {
+          refetch();
+          toast.success("User Verified Successfully");
+        }
+        console.log(data);
+      });
+  };
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div>
@@ -30,9 +59,21 @@ const AllSellers = () => {
                 <td>{seller.name}</td>
                 <td>{seller.email}</td>
                 <td>
-                  <button className="btn btn-sm btn-success text-white">
-                    Verify
-                  </button>
+                  {seller.isVerified === true ? (
+                    <button
+                      onClick={() => handleVerify(seller._id)}
+                      className="btn btn-sm btn-disabled text-white"
+                    >
+                      Verified
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleVerify(seller._id)}
+                      className="btn btn-sm btn-success text-white"
+                    >
+                      Verify
+                    </button>
+                  )}
                 </td>
                 <td>
                   <button className="btn btn-sm btn-error text-white">
