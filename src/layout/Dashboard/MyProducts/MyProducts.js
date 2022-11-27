@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import toast from "react-hot-toast";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import Loading from "../../../pages/shared/Loading/Loading";
 
 const MyProducts = () => {
   const { user } = useContext(AuthContext);
-  //   const [myProducts, setMyProducts] = useState([]);
   const {
     data: myProducts = [],
     isLoading,
@@ -32,6 +32,7 @@ const MyProducts = () => {
       .then((data) => {
         if (data.modifiedCount === 1) {
           refetch();
+          toast.success("Product Advertised On Home Page");
         }
         console.log(data);
       });
@@ -65,10 +66,7 @@ const MyProducts = () => {
                 <td>{product.status}</td>
                 <td>
                   {product.isAdvertised === true ? (
-                    <button
-                      onClick={() => handleAdvertise(product._id)}
-                      className="btn btn-sm btn-disabled  text-white"
-                    >
+                    <button className="btn btn-sm btn-disabled  text-white">
                       Advertised
                     </button>
                   ) : (

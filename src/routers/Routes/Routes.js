@@ -5,6 +5,7 @@ import AllSellers from "../../layout/Dashboard/AllSellers/AllSellers";
 import AllUsers from "../../layout/Dashboard/AllUsers/AllUsers";
 import Dashboard from "../../layout/Dashboard/Dashboard";
 import DashboardHome from "../../layout/Dashboard/DashboardHome/DashboardHome";
+import MyOrders from "../../layout/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../layout/Dashboard/MyProducts/MyProducts";
 import Main from "../../layout/Main/Main";
 import Blog from "../../pages/Blog/Blog";
@@ -35,7 +36,11 @@ const Routes = createBrowserRouter([
       },
       {
         path: "/categories/:name",
-        element: <SingleCategory></SingleCategory>,
+        element: (
+          <PrivateRoute>
+            <SingleCategory></SingleCategory>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/categories/${params.name}`),
       },
@@ -60,6 +65,10 @@ const Routes = createBrowserRouter([
       {
         path: "/dashboard",
         element: <DashboardHome></DashboardHome>,
+      },
+      {
+        path: "/dashboard/myOrders",
+        element: <MyOrders></MyOrders>,
       },
       {
         path: "/dashboard/addAProduct",

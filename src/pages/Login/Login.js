@@ -59,6 +59,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        getUserToken(data.email);
         toast.success("User Logged In Successfully");
         navigate(from, { replace: true });
       })
@@ -69,6 +70,7 @@ const Login = () => {
 
   // get user token start
   const getUserToken = (email) => {
+    console.log(email);
     fetch(`http://localhost:5000/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
