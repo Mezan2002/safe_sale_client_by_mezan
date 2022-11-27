@@ -24,13 +24,34 @@ const SignUp = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        toast.success("User Logged In Successfully");
+        googleLoggedInUseInfo(user.displayName, user.email);
       })
       .catch((err) => {
         setSetUpError(err.message);
       });
   };
   //   handle google sign in end
+
+  // goole logged in user set on DB start
+  const googleLoggedInUseInfo = (name, email) => {
+    const info = { name, email, role: "Buyer" };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(info),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          getUserToken(email);
+          toast.success("User Logged In Successfully");
+          console.log(data);
+        }
+      });
+  };
+  // goole logged in user set on DB end
 
   //   handle email and password login start
   const handleSignUp = (data) => {
