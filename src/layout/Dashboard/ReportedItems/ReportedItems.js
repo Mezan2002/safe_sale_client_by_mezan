@@ -18,17 +18,20 @@ const ReportedItems = () => {
   });
 
   const handleDeleteItem = (id) => {
-    fetch(`http://localhost:5000/products/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount === 1) {
-          refetch();
-          toast.success("Product Deleted Successfully");
-        }
-        console.log(data);
-      });
+    const proceed = window.confirm("Are you want to delete the product?");
+    if (proceed) {
+      fetch(`http://localhost:5000/products/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount === 1) {
+            refetch();
+            toast.success("Product Deleted Successfully");
+          }
+          console.log(data);
+        });
+    }
   };
 
   if (isLoading) {

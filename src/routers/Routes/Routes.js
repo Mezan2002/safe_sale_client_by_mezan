@@ -90,7 +90,6 @@ const Routes = createBrowserRouter([
       {
         path: "/dashboard/allUsers",
         element: <AllUsers></AllUsers>,
-        loader: () => fetch("http://localhost:5000/users"),
       },
       {
         path: "/dashboard/reportedItems",

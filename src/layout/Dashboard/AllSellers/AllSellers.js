@@ -34,6 +34,23 @@ const AllSellers = () => {
       });
   };
 
+  const handleDeleteUser = (id) => {
+    const proceed = window.confirm("Are you want to delete the user?");
+    if (proceed) {
+      fetch(`http://localhost:5000/users/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount) {
+            refetch();
+            toast.success("User Deleted Successfully");
+          }
+          console.log(data);
+        });
+    }
+  };
+
   if (isLoading) {
     return <Loading></Loading>;
   }
@@ -76,7 +93,10 @@ const AllSellers = () => {
                   )}
                 </td>
                 <td>
-                  <button className="btn btn-sm btn-error text-white">
+                  <button
+                    onClick={() => handleDeleteUser(seller._id)}
+                    className="btn btn-sm btn-error text-white"
+                  >
                     Delete
                   </button>
                 </td>

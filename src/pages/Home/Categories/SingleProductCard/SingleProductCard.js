@@ -64,7 +64,7 @@ const SingleProductCard = ({ product, setProduct }) => {
               </h2>
               <h4 className="flex items-center justify-center md:justify-start font-bold mb-7 text-center md:text-left">
                 Posted By {sellerName}
-                {user[0].isVerified === true ? (
+                {user[0]?.isVerified === true ? (
                   <span className="ml-2">
                     <FaCheckCircle className="text-green-500"></FaCheckCircle>
                   </span>

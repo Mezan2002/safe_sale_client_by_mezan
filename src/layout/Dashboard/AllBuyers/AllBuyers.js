@@ -1,13 +1,42 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import Loading from "../../../pages/shared/Loading/Loading";
 
 const AllBuyers = () => {
-  const [allBuyers, setAllBuyers] = useState([]);
+  const {
+    data: allBuyers = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await fetch("http://localhost:5000/users/buyer");
+      const data = await res.json();
+      return data;
+    },
+  });
 
-  useEffect(() => {
-    fetch("http://localhost:5000/users/buyer")
-      .then((res) => res.json())
-      .then((data) => setAllBuyers(data));
-  }, []);
+  const handleDeleteUser = (id) => {
+    const proceed = window.confirm("Are you want to delete the user?");
+    if (proceed) {
+      fetch(`http://localhost:5000/users/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount) {
+            refetch();
+            toast.success("User Deleted Successfully");
+          }
+          console.log(data);
+        });
+    }
+  };
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div>
@@ -29,7 +58,10 @@ const AllBuyers = () => {
                 <td>{buyer.name}</td>
                 <td>{buyer.email}</td>
                 <td>
-                  <button className="btn btn-sm btn-error text-white">
+                  <button
+                    onClick={() => handleDeleteUser(buyer._id)}
+                    className="btn btn-sm btn-error text-white"
+                  >
                     Delete
                   </button>
                 </td>
