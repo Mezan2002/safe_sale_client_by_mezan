@@ -54,15 +54,13 @@ const SingleProductCard = ({ product, setProduct }) => {
 
   return (
     <div>
-      <div className="card lg:card-side shadow-xl w-8/12 mx-auto mb-20">
+      <div className="card lg:card-side shadow-xl md:w-8/12 mx-auto mb-20">
         <img src={productPhoto} className="h-96 mt-7 ml-5" alt="" />
         <div className="card-body">
           <div className="flex justify-between items-start">
             <div>
-              <h2 className="text-4xl font-bold text-center md:text-left">
-                {name}
-              </h2>
-              <h4 className="flex items-center justify-center md:justify-start font-bold mb-7 text-center md:text-left">
+              <h2 className="text-4xl font-bold text-left">{name}</h2>
+              <h4 className="flex items-center md:justify-start font-bold mb-7 md:text-left">
                 Posted By {sellerName}
                 {user[0]?.isVerified === true ? (
                   <span className="ml-2">
@@ -87,7 +85,7 @@ const SingleProductCard = ({ product, setProduct }) => {
               </button>
             </div>
           </div>
-          <div className="font-semibold mb-5 text-center md:text-left">
+          <div className="font-semibold mb-5 md:text-left">
             <p>Original Price: {originalPrice} BDT</p>
             <p>Resale Price: {resalePrice} BDT</p>
             <p>Products Status: {status}</p>
@@ -97,7 +95,7 @@ const SingleProductCard = ({ product, setProduct }) => {
             <p>Product Recived from: {locationOfSeller}</p>
             <p>Product Added on: {productAddedDate}</p>
           </div>
-          <div className=" text-center md:text-left">
+          <div className=" md:text-left">
             {status === "Booked" ? (
               <label htmlFor="bookingModal" className="btn btn-disabled">
                 Booked

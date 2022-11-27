@@ -85,11 +85,11 @@ const Login = () => {
   return (
     <div>
       <div className="flex items-center justify-around">
-        <div className="w-1/2">
+        <div className="md:w-1/2 hidden md:block">
           <img src={loginImage} className="w-8/12 mx-auto" alt="" />
         </div>
-        <div className="w-1/2">
-          <div className="border w-9/12  border-black p-10 rounded-3xl">
+        <div className="md:w-1/2">
+          <div className="border md:w-9/12 w-full my-10 border-black p-10 rounded-3xl">
             <h2 className="text-4xl text-center mb-10 font-semibold">Log In</h2>
             <p className="text-center text-red-500">{loginError}</p>
             <form onSubmit={handleSubmit(handleLogIn)}>

@@ -106,12 +106,16 @@ const SignUp = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-around min-h-[90vh]">
+      <div className="md:flex items-center justify-around min-h-[90vh]">
         <div className="w-1/2">
-          <img src={loginImage} className="w-8/12 mx-auto" alt="" />
+          <img
+            src={loginImage}
+            className="w-8/12 hidden md:block mx-auto"
+            alt=""
+          />
         </div>
-        <div className="w-1/2">
-          <div className="border w-9/12  border-black p-10 rounded-3xl">
+        <div className="md:w-1/2">
+          <div className="border md:w-9/12 w-11/12 mx-auto my-10 border-black p-10 rounded-3xl">
             <h2 className="text-4xl text-center mb-10 font-semibold">
               Sign Up
             </h2>

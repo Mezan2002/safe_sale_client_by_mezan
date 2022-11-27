@@ -13,7 +13,7 @@ const Contact = () => {
           <img
             src="https://static.wixstatic.com/media/843ba4_bd3021bc6649414fa9451b5029146550~mv2.gif"
             alt=""
-            className="p-6 w-11/12 -ml-20"
+            className="lg:p-6 lg:w-11/12 lg:-ml-20"
           />
         </div>
         <form
