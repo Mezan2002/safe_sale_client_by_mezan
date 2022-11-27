@@ -25,16 +25,35 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        navigate("/");
-        toast.success("User Logged In Successfully");
+        googleLoggedInUseInfo(user.displayName, user.email);
       })
       .catch((err) => {
         setLoginError(err.message);
       });
   };
 
+  // goole logged in user set on DB start
+  const googleLoggedInUseInfo = (name, email) => {
+    const info = { name, email, role: "Buyer" };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(info),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          getUserToken(email);
+          navigate("/");
+          toast.success("User Logged In Successfully");
+        }
+      });
+  };
+  // goole logged in user set on DB end
+
   const handleLogIn = (data) => {
-    console.log(data);
     setLoginError("");
     loginUser(data.email, data.password)
       .then((result) => {
@@ -47,6 +66,19 @@ const Login = () => {
         setLoginError(error.message);
       });
   };
+
+  // get user token start
+  const getUserToken = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("accessToken", data.accessToken);
+          navigate("/");
+        }
+      });
+  };
+  // get user token end
 
   return (
     <div>
