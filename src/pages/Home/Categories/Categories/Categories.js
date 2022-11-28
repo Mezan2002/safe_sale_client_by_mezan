@@ -4,7 +4,7 @@ import CategoryCard from "../CategoryCard/CategoryCard";
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/categories")
+    fetch("https://safe-sale-server-by-mezan.vercel.app/categories")
       .then((res) => res.json())
       .then((data) => setCategories(data));
   }, []);

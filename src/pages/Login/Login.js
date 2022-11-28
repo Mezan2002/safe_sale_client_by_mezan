@@ -35,7 +35,7 @@ const Login = () => {
   // goole logged in user set on DB start
   const googleLoggedInUseInfo = (name, email) => {
     const info = { name, email, role: "Buyer" };
-    fetch("http://localhost:5000/users", {
+    fetch("https://safe-sale-server-by-mezan.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -71,7 +71,7 @@ const Login = () => {
   // get user token start
   const getUserToken = (email) => {
     console.log(email);
-    fetch(`http://localhost:5000/jwt?email=${email}`)
+    fetch(`https://safe-sale-server-by-mezan.vercel.app/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.accessToken) {

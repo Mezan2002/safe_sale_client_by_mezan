@@ -11,7 +11,7 @@ const ReportedItems = () => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/products/reported");
+      const res = await fetch("https://safe-sale-server-by-mezan.vercel.app/products/reported");
       const data = await res.json();
       return data;
     },
@@ -20,7 +20,7 @@ const ReportedItems = () => {
   const handleDeleteItem = (id) => {
     const proceed = window.confirm("Are you want to delete the product?");
     if (proceed) {
-      fetch(`http://localhost:5000/products/${id}`, {
+      fetch(`https://safe-sale-server-by-mezan.vercel.app/products/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

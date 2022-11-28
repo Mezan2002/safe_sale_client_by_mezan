@@ -43,7 +43,9 @@ const Routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/categories/${params.name}`),
+          fetch(
+            `https://safe-sale-server-by-mezan.vercel.app/categories/${params.name}`
+          ),
       },
       {
         path: "/login",

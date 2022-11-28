@@ -8,9 +8,11 @@ const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const [loggedInUser, setLoggedInUser] = useState([]);
   useEffect(() => {
-    axios.get(`http://localhost:5000/users/${user?.email}`).then((data) => {
-      setLoggedInUser(data.data);
-    });
+    axios
+      .get(`https://safe-sale-server-by-mezan.vercel.app/users/${user?.email}`)
+      .then((data) => {
+        setLoggedInUser(data.data);
+      });
   }, [user?.email]);
 
   return (

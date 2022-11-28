@@ -24,7 +24,9 @@ const SingleProductCard = ({ product, setProduct }) => {
   const { data: user = [], isLoading } = useQuery({
     queryKey: ["users", sellerEmail],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/users/${sellerEmail}`);
+      const res = await fetch(
+        `https://safe-sale-server-by-mezan.vercel.app/users/${sellerEmail}`
+      );
       const data = await res.json();
       return data;
     },
@@ -35,9 +37,12 @@ const SingleProductCard = ({ product, setProduct }) => {
       "Are you really want to report this product?"
     );
     if (proceed) {
-      fetch(`http://localhost:5000/products/reported/${id}`, {
-        method: "PATCH",
-      })
+      fetch(
+        `https://safe-sale-server-by-mezan.vercel.app/products/reported/${id}`,
+        {
+          method: "PATCH",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.modifiedCount === 1) {

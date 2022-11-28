@@ -32,7 +32,7 @@ const AddAProduct = () => {
       isAdvertised: false,
     };
 
-    fetch("http://localhost:5000/products", {
+    fetch("https://safe-sale-server-by-mezan.vercel.app/products", {
       method: "POST",
       headers: {
         "content-type": "application/json",

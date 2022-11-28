@@ -31,7 +31,7 @@ const BookingModal = ({ product, setProduct }) => {
       meetingLocation,
     };
 
-    fetch("http://localhost:5000/bookings", {
+    fetch("https://safe-sale-server-by-mezan.vercel.app/bookings", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -41,7 +41,7 @@ const BookingModal = ({ product, setProduct }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
-          fetch(`http://localhost:5000/booked/${_id}`, {
+          fetch(`https://safe-sale-server-by-mezan.vercel.app/booked/${_id}`, {
             method: "PATCH",
             headers: {
               "content-type": "application/json",

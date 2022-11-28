@@ -11,14 +11,16 @@ const AllSellers = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users/seller");
+      const res = await fetch(
+        "https://safe-sale-server-by-mezan.vercel.app/users/seller"
+      );
       const data = await res.json();
       return data;
     },
   });
 
   const handleVerify = (id) => {
-    fetch(`http://localhost:5000/users/${id}`, {
+    fetch(`https://safe-sale-server-by-mezan.vercel.app/users/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -37,7 +39,7 @@ const AllSellers = () => {
   const handleDeleteUser = (id) => {
     const proceed = window.confirm("Are you want to delete the user?");
     if (proceed) {
-      fetch(`http://localhost:5000/users/${id}`, {
+      fetch(`https://safe-sale-server-by-mezan.vercel.app/users/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

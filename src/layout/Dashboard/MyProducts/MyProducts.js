@@ -14,7 +14,7 @@ const MyProducts = () => {
     queryKey: ["products", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/products?email=${user?.email}`
+        `https://safe-sale-server-by-mezan.vercel.app/products?email=${user?.email}`
       );
       const data = res.json();
       return data;
@@ -22,7 +22,7 @@ const MyProducts = () => {
   });
 
   const handleAdvertise = (id) => {
-    fetch(`http://localhost:5000/products/${id}`, {
+    fetch(`https://safe-sale-server-by-mezan.vercel.app/products/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

@@ -21,7 +21,9 @@ const AdvertisedProductCard = ({ product, setProduct }) => {
   const { data: user = [], isLoading } = useQuery({
     queryKey: ["users", sellerEmail],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/users/${sellerEmail}`);
+      const res = await fetch(
+        `https://safe-sale-server-by-mezan.vercel.app/users/${sellerEmail}`
+      );
       const data = await res.json();
       return data;
     },

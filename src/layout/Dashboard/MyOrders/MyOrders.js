@@ -13,7 +13,7 @@ const MyOrders = () => {
     queryKey: ["bookings", user?.email],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/bookings?email=${user?.email}`,
+        `https://safe-sale-server-by-mezan.vercel.app/bookings?email=${user?.email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -27,7 +27,7 @@ const MyOrders = () => {
   const handleCancel = (id) => {
     const proceed = window.confirm("Are you want to delete your order?");
     if (proceed) {
-      fetch(`http://localhost:5000/bookings/${id}`, {
+      fetch(`https://safe-sale-server-by-mezan.vercel.app/bookings/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
