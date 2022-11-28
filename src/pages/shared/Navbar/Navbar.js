@@ -80,16 +80,16 @@ const Navbar = () => {
           <ul className="menu menu-horizontal p-0">{navItems}</ul>
         </div>
         <div className="">
-          <div className="bg-gray-400 rounded-full w-10 h-10 flex justify-center items-center">
-            <span>
-              {user?.displayName && (
+          {user?.displayName ? (
+            <div className="bg-gray-400 rounded-full w-10 h-10 flex justify-center items-center">
+              <span>
                 <FaUserAlt
                   title={user.displayName}
                   className="text-xl"
                 ></FaUserAlt>
-              )}
-            </span>
-          </div>
+              </span>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
