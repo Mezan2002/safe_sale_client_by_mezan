@@ -40,6 +40,10 @@ const MyOrders = () => {
     }
   };
 
+  const handlePayment = (id) => {
+    console.log(id);
+  };
+
   if (isLoading) {
     return <Loading></Loading>;
   }
@@ -73,7 +77,10 @@ const MyOrders = () => {
                 <td>{order.locationOfProduct}</td>
                 <td>{order.meetingLocation}</td>
                 <td>
-                  <button className="btn btn-success btn-sm text-white">
+                  <button
+                    onClick={() => handlePayment(order._id)}
+                    className="btn btn-success btn-sm text-white"
+                  >
                     Pay
                   </button>
                 </td>
