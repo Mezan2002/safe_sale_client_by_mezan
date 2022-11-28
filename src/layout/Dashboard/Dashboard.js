@@ -39,7 +39,7 @@ const Dashboard = () => {
             {loggedInUser[0]?.role === "Buyer" && (
               <>
                 <li>
-                  <Link to="/dashboard">My Orders</Link>
+                  <Link to="/dashboard/myOrders">My Orders</Link>
                 </li>
               </>
             )}

@@ -7,6 +7,7 @@ import Dashboard from "../../layout/Dashboard/Dashboard";
 import DashboardHome from "../../layout/Dashboard/DashboardHome/DashboardHome";
 import MyOrders from "../../layout/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../layout/Dashboard/MyProducts/MyProducts";
+import Payment from "../../layout/Dashboard/Payment/Payment";
 import ReportedItems from "../../layout/Dashboard/ReportedItems/ReportedItems";
 import Main from "../../layout/Main/Main";
 import Blog from "../../pages/Blog/Blog";
@@ -96,6 +97,12 @@ const Routes = createBrowserRouter([
       {
         path: "/dashboard/reportedItems",
         element: <ReportedItems></ReportedItems>,
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: <Payment></Payment>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/bookings/${params.id}`),
       },
     ],
   },

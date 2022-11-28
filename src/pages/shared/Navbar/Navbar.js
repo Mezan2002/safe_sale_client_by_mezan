@@ -82,7 +82,12 @@ const Navbar = () => {
         <div className="">
           <div className="bg-gray-400 rounded-full w-10 h-10 flex justify-center items-center">
             <span>
-              <FaUserAlt className="text-xl"></FaUserAlt>
+              {user?.displayName && (
+                <FaUserAlt
+                  title={user.displayName}
+                  className="text-xl"
+                ></FaUserAlt>
+              )}
             </span>
           </div>
         </div>
